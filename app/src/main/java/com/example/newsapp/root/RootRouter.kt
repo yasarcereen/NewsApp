@@ -46,7 +46,6 @@ class RootRouter(
     }
 
     fun attachArticle(article: Article) {
-        Log.d("deneme", "calisti")
         if (articleRouter != null) {
             throw IllegalStateException("Article is already attached")
         }

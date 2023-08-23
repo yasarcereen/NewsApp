@@ -55,7 +55,6 @@ class NewsListView: Compose, NewsListInteractor.Presenter {
             .fillMaxWidth()
             .clickable {
                 coroutineScope.launch {
-                    Log.d("deneme","emitted")
                     articleClicks.emit(article)
                 }
             }) {

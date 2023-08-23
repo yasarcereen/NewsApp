@@ -24,25 +24,22 @@ class RootInteractor : Interactor<RootInteractor.Presenter, RootRouter>() {
 
         coroutineScope.launch {
             newsListEventsFlow.collect{
-                Log.d("deneme", "collecting $it.")
-//                when (it) {
-//                    is NewsListEvents.ArticleSelected -> {
-//                        router.detachNewsList()
-//                        router.attachArticle(it.article)
-//                    }
-//                }
+                when (it) {
+                    is NewsListEvents.ArticleSelected -> {
+                        router.detachNewsList()
+                        router.attachArticle(it.article)
+                    }
+                }
             }
         }
         coroutineScope.launch {
             while (true){
-                Log.d("deneme", "collecting")
                 delay(2000)
             }
         }
 
         coroutineScope.launch {
             newsListBoolean.collect {
-                Log.d("deneme", "Boolean Değer: $it")
             }
         }
     }

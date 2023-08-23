@@ -36,7 +36,6 @@ class NewsListInteractor :
 
         coroutineScope.launch {
             injectedPresenter.articleClicks.collect {
-                Log.d("deneme", "newslistevents ${it.title}")
                 newsListEventFlowCollector.emit(NewsListEvents.ArticleSelected(it))
             }
         }

@@ -17,8 +17,9 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 
 @Module
 abstract class RootModule {
-    @RootScope
+
     companion object {
+        @RootScope
         @Provides
         fun router(
             component: RootComponent,
@@ -33,11 +34,13 @@ abstract class RootModule {
             )
         }
 
+        @RootScope
         @Provides
         fun newsListEventsMutableFlow(): MutableSharedFlow<@JvmSuppressWildcards NewsListEvents> {
             return MutableSharedFlow()
         }
 
+        @RootScope
         @Provides
         fun newsListBooleanMutableFlow(): MutableSharedFlow<@JvmSuppressWildcards BooleanState> {
             return MutableSharedFlow()
