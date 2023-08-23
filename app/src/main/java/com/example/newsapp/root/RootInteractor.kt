@@ -1,12 +1,13 @@
 package com.example.newsapp.root
 
-import android.util.Log
+import com.example.newsapp.root.units.article.ArticleEvents
 import com.example.newsapp.root.units.newslist.NewsListEvents
 import com.uber.rib.core.Bundle
 import com.uber.rib.core.Interactor
 import com.uber.rib.core.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,7 +17,7 @@ class RootInteractor : Interactor<RootInteractor.Presenter, RootRouter>() {
     lateinit var newsListEventsFlow: Flow<@JvmSuppressWildcards NewsListEvents>
 
     @Inject
-    lateinit var newsListBoolean: Flow<@JvmSuppressWildcards BooleanState>
+    lateinit var articleEventsFlow: Flow<@JvmSuppressWildcards ArticleEvents>
 
     override fun didBecomeActive(savedInstanceState: Bundle?) {
         super.didBecomeActive(savedInstanceState)
@@ -32,14 +33,15 @@ class RootInteractor : Interactor<RootInteractor.Presenter, RootRouter>() {
                 }
             }
         }
-        coroutineScope.launch {
-            while (true){
-                delay(2000)
-            }
-        }
 
         coroutineScope.launch {
-            newsListBoolean.collect {
+            articleEventsFlow.collect {
+                when (it) {
+                    is ArticleEvents.BackButtonClicked -> {
+                        router.detachArticle()
+                        router.attachNewsList()
+                    }
+                }
             }
         }
     }

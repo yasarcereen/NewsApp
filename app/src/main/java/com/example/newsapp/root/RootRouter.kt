@@ -1,14 +1,12 @@
 package com.example.newsapp.root
 
-import android.util.Log
 import com.example.newsapp.data.model.Article
 import com.example.newsapp.root.units.article.ArticleRouter
 import com.example.newsapp.root.units.article.builder.ArticleBuilder
 import com.example.newsapp.root.units.newslist.NewsListRouter
 import com.example.newsapp.root.units.newslist.builder.NewsListBuilder
-import com.uber.rib.core.InteractorBaseComponent
 import com.example.newsapp.utils.compose.rib.ComposeRouter
-import java.lang.IllegalStateException
+import com.uber.rib.core.InteractorBaseComponent
 
 class RootRouter(
     view: RootView,
@@ -17,11 +15,9 @@ class RootRouter(
     private val newsListBuilder: NewsListBuilder,
     private val articleBuilder: ArticleBuilder
 ) : ComposeRouter<RootView, RootInteractor>(view, interactor, component) {
-    var newsListRouter : NewsListRouter ?= null
-        private set
+    private var newsListRouter : NewsListRouter ?= null
 
-    var articleRouter: ArticleRouter ?= null
-        private set
+    private var articleRouter: ArticleRouter ?= null
 
     fun attachNewsList() {
         if (newsListRouter != null) {
@@ -43,6 +39,7 @@ class RootRouter(
             detachChild(it)
             view.removeContainerView()
         }
+        newsListRouter = null
     }
 
     fun attachArticle(article: Article) {
@@ -65,5 +62,6 @@ class RootRouter(
             detachChild(it)
             view.removeContainerView()
         }
+        articleRouter = null
     }
 }

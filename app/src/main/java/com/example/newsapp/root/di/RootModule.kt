@@ -1,12 +1,11 @@
 package com.example.newsapp.root.di
 
-import com.example.newsapp.root.BooleanState
 import com.example.newsapp.root.RootInteractor
 import com.example.newsapp.root.RootRouter
 import com.example.newsapp.root.RootView
+import com.example.newsapp.root.units.article.ArticleEvents
 import com.example.newsapp.root.units.article.builder.ArticleBuilder
 import com.example.newsapp.root.units.newslist.NewsListEvents
-import com.example.newsapp.root.units.newslist.NewsListRouter
 import com.example.newsapp.root.units.newslist.builder.NewsListBuilder
 import dagger.Binds
 import dagger.Module
@@ -17,7 +16,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 
 @Module
 abstract class RootModule {
-
     companion object {
         @RootScope
         @Provides
@@ -42,7 +40,7 @@ abstract class RootModule {
 
         @RootScope
         @Provides
-        fun newsListBooleanMutableFlow(): MutableSharedFlow<@JvmSuppressWildcards BooleanState> {
+        fun articleEventsMutableFlow(): MutableSharedFlow<@JvmSuppressWildcards ArticleEvents> {
             return MutableSharedFlow()
         }
     }
@@ -65,13 +63,13 @@ abstract class RootModule {
 
     @RootScope
     @Binds
-    abstract fun newsListBooleanAsFlow(
-        mutableFlow: MutableSharedFlow<@JvmSuppressWildcards BooleanState>
-    ): Flow<@JvmSuppressWildcards BooleanState>
+    abstract fun articleEventsAsFlow(
+        mutableFlow: MutableSharedFlow<@JvmSuppressWildcards ArticleEvents>
+    ): Flow<@JvmSuppressWildcards ArticleEvents>
 
     @RootScope
     @Binds
-    abstract fun newsListBooleanAsFlowCollector(
-        mutableFlow: MutableSharedFlow<@JvmSuppressWildcards BooleanState>
-    ): FlowCollector<@JvmSuppressWildcards BooleanState>
+    abstract fun articleEventsAsFlowCollector(
+        mutableFlow: MutableSharedFlow<@JvmSuppressWildcards ArticleEvents>
+    ): FlowCollector<@JvmSuppressWildcards ArticleEvents>
 }
