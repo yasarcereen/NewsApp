@@ -1,5 +1,6 @@
 package com.example.newsapp.root
 
+import android.util.Log
 import com.example.newsapp.data.model.Article
 import com.example.newsapp.root.units.article.ArticleRouter
 import com.example.newsapp.root.units.article.builder.ArticleBuilder
@@ -45,6 +46,7 @@ class RootRouter(
     }
 
     fun attachArticle(article: Article) {
+        Log.d("deneme", "calisti")
         if (articleRouter != null) {
             throw IllegalStateException("Article is already attached")
         }
